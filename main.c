@@ -10,11 +10,13 @@ void limparBufferEntrada()
 
 void trataAdicionarPrato(Prato *listaPratos, int *numPratos);
 
-void removerPrato(Prato *listaPratos, int *numPratos);
+void trataRemoverPrato(Prato *, int *);
 
 void imprimirListaPratos(Prato *listaPratos, int numPratos);
 
 void editarPrato(Prato *listaPratos, int numPratos);
+
+void imprimeListaCompacta(Prato *, int);
 
 // void pesquisarPrato(listaPratos, numPratos);
 // void gerarRelatorios(listaPratos, numPratos);
@@ -60,7 +62,7 @@ int main()
             trataAdicionarPrato(listaPratos, &numPratos);
             break;
         case 2:
-            removerPrato(listaPratos, &numPratos);
+            trataRemoverPrato(listaPratos, &numPratos);
             break;
         case 3:
             editarPrato(listaPratos, numPratos);
@@ -109,31 +111,18 @@ void trataAdicionarPrato(Prato *listaPratos, int *numPratos)
     printf("✅");
 }
 
-void removerPrato(Prato *listaPratos, int *numPratos)
+void trataRemoverPrato(Prato *listaPratos, int *numPratos)
 {
-    char nomeParaRemover[50];
-    limparBufferEntrada();
-    printf("Digite o nome do prato que deseja remover:");
-    fgets(nomeParaRemover, sizeof(nomeParaRemover), stdin);
+    imprimeListaCompacta(listaPratos, *numPratos);
+    printf("Selecione numero do prato a remover:");
+    int indicePratoARemover = 0;
+    scanf("%d", &indicePratoARemover);
+    indicePratoARemover--;
+    // TODO: verificar indice dentro de intervalo correto
 
-    // Remover o caractere de nova linha (\n) da entrada
-    nomeParaRemover[strcspn(nomeParaRemover, "\n")] = '\0';
-
-    // Remover o prato da lista se for encontrado
-    for (int i = 0; i < *numPratos; i++)
-    {
-        if (strcmp(listaPratos[i].nome, nomeParaRemover) == 0)
-        {
-            // Deslocar os pratos restantes para preencher o espaço do prato removido
-            listaPratos[i] = listaPratos[*numPratos - 1];
-            (*numPratos)--; // Atualizar o número de pratos na lista
-            printf("Prato removido com sucesso!\n");
-            return;
-        }
-    }
-
-    // Se o prato não for encontrado na lista
-    printf("O prato '%s' nao foi encontrado na lista.\n", nomeParaRemover);
+    removerPrato(listaPratos, indicePratoARemover, numPratos);
+    printf("Prato removido com sucesso!\n");
+    return;
 }
 
 void imprimirListaPratos(Prato *listaPratos, int numPratos)
@@ -157,17 +146,14 @@ void imprimirListaPratos(Prato *listaPratos, int numPratos)
 
 void editarPrato(Prato *listaPratos, int numPratos)
 {
-    for (int i = 0; i < numPratos; ++i)
-    {
-        printf("Prato %d: %s\n", i + 1, listaPratos[i].nome);
-    }
+    imprimeListaCompacta(listaPratos, numPratos);
 
     printf("Qual o numero do prato quer editar? ");
     int indicePratoAEditar = 0;
     scanf("%d", &indicePratoAEditar);
     indicePratoAEditar--;
 
-    if (indicePratoAEditar < 0 || indicePratoAEditar >= numPratos)
+    if (indicePratoAEditar < 1 || indicePratoAEditar > numPratos)
     {
         printf("O prato escolhido nao existe.\n");
         return;
@@ -191,6 +177,14 @@ void editarPrato(Prato *listaPratos, int numPratos)
 
     printf("Digite o novo preco do prato: ");
     scanf(" %f", &pratoAEditar->preco);
+}
+
+void imprimeListaCompacta(Prato *listaPratos, int numPratos)
+{
+    for (int i = 0; i < numPratos; ++i)
+    {
+        printf("Prato %d: %s\n", i + 1, listaPratos[i].nome);
+    }
 }
 
 // void pesquisarPrato(listaPratos, numPratos) {

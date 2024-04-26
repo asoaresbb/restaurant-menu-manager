@@ -11,5 +11,6 @@ typedef struct
 } Prato;
 
 void adicionarPrato(Prato *, int *, Prato);
+void removerPrato(Prato *, int, int *);
 
 #endif
