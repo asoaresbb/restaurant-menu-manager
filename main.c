@@ -2,15 +2,18 @@
 #include <string.h>
 
 // Definição da estrutura para representar um prato
-struct Prato {
+struct Prato
+{
     char nome[50];
     char descricao[100];
     char tipo[20];
     float preco;
 };
 
-void limparBufferEntrada() {
-    while ((getchar()) != '\n'); // Limpar o buffer de entrada
+void limparBufferEntrada()
+{
+    while ((getchar()) != '\n')
+        ; // Limpar o buffer de entrada
 }
 
 void adicionarPrato(struct Prato *listaPratos, int *numPratos);
@@ -21,17 +24,18 @@ void imprimirListaPratos(struct Prato *listaPratos, int numPratos);
 
 void editarPrato(struct Prato *listaPratos, int numPratos);
 
-//void pesquisarPrato(listaPratos, numPratos);
-//void gerarRelatorios(listaPratos, numPratos);
+// void pesquisarPrato(listaPratos, numPratos);
+// void gerarRelatorios(listaPratos, numPratos);
 void registarPedido(struct Prato *listaPratos, int numPratos);
 
 void atribuirPedidoMesa();
 
 void controlarEstadoPedidos();
 
-int main() {
+int main()
+{
     struct Prato listaPratos[100]; // Lista de pratos
-    int numPratos = 0; // Número atual de pratos na lista
+    int numPratos = 0;             // Número atual de pratos na lista
 
     // Adicionando pratos manualmente (substituir por CSV)
     struct Prato novoPrato1 = {"Picanha", "Suculenta picanha grelhada", "Carne", 35.50};
@@ -42,7 +46,8 @@ int main() {
 
     int opcao;
 
-    while (1) {
+    while (1)
+    {
         // Exibir opções do menu
         printf("\nMenu:\n");
         printf("1 - Adicionar prato\n");
@@ -58,48 +63,50 @@ int main() {
         printf("Escolha uma opcao:\n");
         scanf("%d", &opcao);
 
-        switch (opcao) {
-            case 1:
-                adicionarPrato(listaPratos, &numPratos);
-                break;
-            case 2:
-                removerPrato(listaPratos, &numPratos);
-                break;
-            case 3:
-                editarPrato(listaPratos, numPratos);
-                break;
-            case 4:
-                //pesquisarPrato(listaPratos, numPratos);
-                break;
-            case 5:
-                imprimirListaPratos(listaPratos, numPratos);
-                break;
-            case 6:
-                registarPedido(listaPratos, numPratos);
-                break;
-            case 7:
-                atribuirPedidoMesa();
-                break;
-            case 8:
-                controlarEstadoPedidos();
-                break;
-            case 9:
-                //gerarRelatorios(listaPratos, numPratos);
-                break;
-            case 0:
-                printf("A sair do programa...\n");
-                return 0;
-            default:
-                printf("Opcao invalida. Tente novamente.\n");
-                break;
+        switch (opcao)
+        {
+        case 1:
+            adicionarPrato(listaPratos, &numPratos);
+            break;
+        case 2:
+            removerPrato(listaPratos, &numPratos);
+            break;
+        case 3:
+            editarPrato(listaPratos, numPratos);
+            break;
+        case 4:
+            // pesquisarPrato(listaPratos, numPratos);
+            break;
+        case 5:
+            imprimirListaPratos(listaPratos, numPratos);
+            break;
+        case 6:
+            registarPedido(listaPratos, numPratos);
+            break;
+        case 7:
+            atribuirPedidoMesa();
+            break;
+        case 8:
+            controlarEstadoPedidos();
+            break;
+        case 9:
+            // gerarRelatorios(listaPratos, numPratos);
+            break;
+        case 0:
+            printf("A sair do programa...\n");
+            return 0;
+        default:
+            printf("Opcao invalida. Tente novamente.\n");
+            break;
         }
-
     }
     return 0;
 }
 
-void adicionarPrato(struct Prato *listaPratos, int *numPratos) {
-    if (*numPratos >= 100) {
+void adicionarPrato(struct Prato *listaPratos, int *numPratos)
+{
+    if (*numPratos >= 100)
+    {
         printf("A lista de pratos está cheia.\n");
         return;
     }
@@ -119,7 +126,8 @@ void adicionarPrato(struct Prato *listaPratos, int *numPratos) {
     (*numPratos)++; // Incrementar o número de pratos na lista
 }
 
-void removerPrato(struct Prato *listaPratos, int *numPratos) {
+void removerPrato(struct Prato *listaPratos, int *numPratos)
+{
     char nomeParaRemover[50];
     limparBufferEntrada();
     printf("Digite o nome do prato que deseja remover:");
@@ -129,8 +137,10 @@ void removerPrato(struct Prato *listaPratos, int *numPratos) {
     nomeParaRemover[strcspn(nomeParaRemover, "\n")] = '\0';
 
     // Remover o prato da lista se for encontrado
-    for (int i = 0; i < *numPratos; i++) {
-        if (strcmp(listaPratos[i].nome, nomeParaRemover) == 0) {
+    for (int i = 0; i < *numPratos; i++)
+    {
+        if (strcmp(listaPratos[i].nome, nomeParaRemover) == 0)
+        {
             // Deslocar os pratos restantes para preencher o espaço do prato removido
             listaPratos[i] = listaPratos[*numPratos - 1];
             (*numPratos)--; // Atualizar o número de pratos na lista
@@ -143,13 +153,16 @@ void removerPrato(struct Prato *listaPratos, int *numPratos) {
     printf("O prato '%s' nao foi encontrado na lista.\n", nomeParaRemover);
 }
 
-void imprimirListaPratos(struct Prato *listaPratos, int numPratos) {
-    if (numPratos == 0) {
+void imprimirListaPratos(struct Prato *listaPratos, int numPratos)
+{
+    if (numPratos == 0)
+    {
         printf("A lista de pratos esta vazia.\n");
         return;
     }
 
-    for (int i = 0; i < numPratos; i++) {
+    for (int i = 0; i < numPratos; i++)
+    {
         printf("Prato %d:\n", i + 1);
         printf("Nome: %s\n", listaPratos[i].nome);
         printf("Descricao: %s\n", listaPratos[i].descricao);
@@ -159,9 +172,10 @@ void imprimirListaPratos(struct Prato *listaPratos, int numPratos) {
     }
 }
 
-void editarPrato(struct Prato *listaPratos, int numPratos) {
-
-    for (int i = 0; i < numPratos; ++i) {
+void editarPrato(struct Prato *listaPratos, int numPratos)
+{
+    for (int i = 0; i < numPratos; ++i)
+    {
         printf("Prato %d: %s\n", i + 1, listaPratos[i].nome);
     }
 
@@ -170,21 +184,21 @@ void editarPrato(struct Prato *listaPratos, int numPratos) {
     scanf("%d", &indicePratoAEditar);
     indicePratoAEditar--;
 
-    if (indicePratoAEditar < 0 || indicePratoAEditar >= numPratos) {
+    if (indicePratoAEditar < 0 || indicePratoAEditar >= numPratos)
+    {
         printf("O prato escolhido nao existe.\n");
         return;
     }
     limparBufferEntrada();
 
     struct Prato *pratoAEditar = &listaPratos[indicePratoAEditar];
-    char tempScanf[50];
+    char textoLido[50];
 
     printf("Digite nome do prato (enter para manter %s): ", pratoAEditar->nome);
-    fgets(tempScanf, sizeof(tempScanf), stdin);
-
-    if (strcmp(tempScanf, "\n")) {
-        strcpy(pratoAEditar->nome, tempScanf);
-    }
+    fgets(textoLido, sizeof(textoLido), stdin);
+    textoLido[strcspn(textoLido, "\n")] = '\0';
+    if (strlen(textoLido) > 0)
+        strcpy(pratoAEditar->nome, textoLido);
 
     printf("Digite a nova descricao do prato: ");
     scanf(" %99[^\n]", pratoAEditar->descricao);
@@ -194,23 +208,22 @@ void editarPrato(struct Prato *listaPratos, int numPratos) {
 
     printf("Digite o novo preco do prato: ");
     scanf(" %f", &pratoAEditar->preco);
-
 }
 
-//void pesquisarPrato(listaPratos, numPratos);
-//void gerarRelatorios(listaPratos, numPratos);
+// void pesquisarPrato(listaPratos, numPratos);
+// void gerarRelatorios(listaPratos, numPratos);
 
-void registarPedido(struct Prato *listaPratos, int numPratos) {
+void registarPedido(struct Prato *listaPratos, int numPratos)
+{
     // Implementar a função para registrar um pedido (ainda não implementada)
 }
 
-void atribuirPedidoMesa() {
+void atribuirPedidoMesa()
+{
     // Implementar a função para atribuir um pedido a uma mesa (ainda não implementada)
 }
 
-void controlarEstadoPedidos() {
+void controlarEstadoPedidos()
+{
     // Implementar a função para controlar o estado dos pedidos (ainda não implementada)
 }
-
-
-
