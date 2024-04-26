@@ -12,5 +12,6 @@ typedef struct
 
 void adicionarPrato(Prato *, int *, Prato);
 void removerPrato(Prato *, int, int *);
+void atualizarPrato(Prato *listaPratos, int numPratos, int indice, Prato prato);
 
 #endif

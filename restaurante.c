@@ -15,3 +15,12 @@ void removerPrato(Prato *listaPratos, int indicePratoARemover, int *numPratos)
     listaPratos[indicePratoARemover] = listaPratos[*numPratos - 1];
     (*numPratos)--; // Atualizar o número de pratos na lista
 }
+
+void atualizarPrato(Prato *listaPratos, int numPratos, int indice, Prato prato)
+{
+    Prato *pratoAEditar = &listaPratos[indice];
+    strcpy(pratoAEditar->nome, prato.nome);
+    strcpy(pratoAEditar->descricao, prato.descricao);
+    strcpy(pratoAEditar->tipo, prato.tipo);
+    pratoAEditar->preco = prato.preco;
+}

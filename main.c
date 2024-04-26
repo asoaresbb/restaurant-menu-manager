@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "restaurante.h"
 
@@ -14,7 +15,7 @@ void trataRemoverPrato(Prato *, int *);
 
 void imprimirListaPratos(Prato *listaPratos, int numPratos);
 
-void editarPrato(Prato *listaPratos, int numPratos);
+void trataEditarPrato(Prato *listaPratos, int numPratos);
 
 void imprimeListaCompacta(Prato *, int);
 
@@ -65,7 +66,7 @@ int main()
             trataRemoverPrato(listaPratos, &numPratos);
             break;
         case 3:
-            editarPrato(listaPratos, numPratos);
+            trataEditarPrato(listaPratos, numPratos);
             break;
         case 4:
             // pesquisarPrato(listaPratos, numPratos);
@@ -144,39 +145,49 @@ void imprimirListaPratos(Prato *listaPratos, int numPratos)
     }
 }
 
-void editarPrato(Prato *listaPratos, int numPratos)
+void trataEditarPrato(Prato *listaPratos, int numPratos)
 {
     imprimeListaCompacta(listaPratos, numPratos);
 
     printf("Qual o numero do prato quer editar? ");
-    int indicePratoAEditar = 0;
-    scanf("%d", &indicePratoAEditar);
-    indicePratoAEditar--;
-
-    if (indicePratoAEditar < 1 || indicePratoAEditar > numPratos)
+    int indicePratoEditado = 0;
+    scanf("%d", &indicePratoEditado);
+    indicePratoEditado--;
+    if (indicePratoEditado < 1 || indicePratoEditado > numPratos)
     {
         printf("O prato escolhido nao existe.\n");
         return;
     }
     limparBufferEntrada();
 
-    Prato *pratoAEditar = &listaPratos[indicePratoAEditar];
+    Prato pratoEditado = listaPratos[indicePratoEditado];
     char textoLido[50];
 
-    printf("Digite nome do prato (enter para manter %s): ", pratoAEditar->nome);
+    printf("Digite nome do prato (enter para manter %s): ", pratoEditado.nome);
     fgets(textoLido, sizeof(textoLido), stdin);
     textoLido[strcspn(textoLido, "\n")] = '\0';
     if (strlen(textoLido) > 0)
-        strcpy(pratoAEditar->nome, textoLido);
+        strcpy(pratoEditado.nome, textoLido);
 
     printf("Digite a nova descricao do prato: ");
-    scanf(" %99[^\n]", pratoAEditar->descricao);
+    fgets(textoLido, sizeof(textoLido), stdin);
+    textoLido[strcspn(textoLido, "\n")] = '\0';
+    if (strlen(textoLido) > 0)
+        strcpy(pratoEditado.descricao, textoLido);
 
     printf("Digite o tipo do prato: ");
-    scanf(" %19[^\n]", pratoAEditar->tipo);
+    fgets(textoLido, sizeof(textoLido), stdin);
+    textoLido[strcspn(textoLido, "\n")] = '\0';
+    if (strlen(textoLido) > 0)
+        strcpy(pratoEditado.tipo, textoLido);
 
     printf("Digite o novo preco do prato: ");
-    scanf(" %f", &pratoAEditar->preco);
+    fgets(textoLido, sizeof(textoLido), stdin);
+    textoLido[strcspn(textoLido, "\n")] = '\0';
+    if (strlen(textoLido) > 0)
+        pratoEditado.preco = atoi(textoLido);
+
+    atualizarPrato(listaPratos, numPratos, indicePratoEditado, pratoEditado);
 }
 
 void imprimeListaCompacta(Prato *listaPratos, int numPratos)
