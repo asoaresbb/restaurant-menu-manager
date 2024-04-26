@@ -153,7 +153,7 @@ void trataEditarPrato(Prato *listaPratos, int numPratos)
     int indicePratoEditado = 0;
     scanf("%d", &indicePratoEditado);
     indicePratoEditado--;
-    if (indicePratoEditado < 1 || indicePratoEditado > numPratos)
+    if (indicePratoEditado < 0 || indicePratoEditado >= numPratos)
     {
         printf("O prato escolhido nao existe.\n");
         return;
