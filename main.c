@@ -10,8 +10,7 @@ struct Prato {
 };
 
 void limparBufferEntrada() {
-    int c;
-    while ((c = getchar()) != '\n' && c != EOF); // Limpar o buffer de entrada
+    while ((getchar()) != '\n'); // Limpar o buffer de entrada
 }
 
 void adicionarPrato(struct Prato *listaPratos, int *numPratos);
@@ -20,7 +19,7 @@ void removerPrato(struct Prato *listaPratos, int *numPratos);
 
 void imprimirListaPratos(struct Prato *listaPratos, int numPratos);
 
-void editarPrato(struct Prato *listaPratos, int *numPratos);
+void editarPrato(struct Prato *listaPratos, int numPratos);
 
 //void pesquisarPrato(listaPratos, numPratos);
 //void gerarRelatorios(listaPratos, numPratos);
@@ -67,7 +66,7 @@ int main() {
                 removerPrato(listaPratos, &numPratos);
                 break;
             case 3:
-                //editarPrato(listaPratos, numPratos);
+                editarPrato(listaPratos, numPratos);
                 break;
             case 4:
                 //pesquisarPrato(listaPratos, numPratos);
@@ -133,9 +132,6 @@ void removerPrato(struct Prato *listaPratos, int *numPratos) {
     for (int i = 0; i < *numPratos; i++) {
         if (strcmp(listaPratos[i].nome, nomeParaRemover) == 0) {
             // Deslocar os pratos restantes para preencher o espaço do prato removido
-            //for (j = i; j < *numPratos - 1; j++) {
-            //    listaPratos[j] = listaPratos[j + 1];
-            //}
             listaPratos[i] = listaPratos[*numPratos - 1];
             (*numPratos)--; // Atualizar o número de pratos na lista
             printf("Prato removido com sucesso!\n");
@@ -163,8 +159,42 @@ void imprimirListaPratos(struct Prato *listaPratos, int numPratos) {
     }
 }
 
-void editarPrato(struct Prato *listaPratos, int *numPratos) {
-    // Implementar a edição do prato.
+void editarPrato(struct Prato *listaPratos, int numPratos) {
+
+    for (int i = 0; i < numPratos; ++i) {
+        printf("Prato %d: %s\n", i + 1, listaPratos[i].nome);
+    }
+
+    printf("Qual o numero do prato quer editar? ");
+    int indicePratoAEditar = 0;
+    scanf("%d", &indicePratoAEditar);
+    indicePratoAEditar--;
+
+    if (indicePratoAEditar < 0 || indicePratoAEditar >= numPratos) {
+        printf("O prato escolhido nao existe.\n");
+        return;
+    }
+    limparBufferEntrada();
+
+    struct Prato *pratoAEditar = &listaPratos[indicePratoAEditar];
+    char tempScanf[50];
+
+    printf("Digite nome do prato (enter para manter %s): ", pratoAEditar->nome);
+    fgets(tempScanf, sizeof(tempScanf), stdin);
+
+    if (strcmp(tempScanf, "\n")) {
+        strcpy(pratoAEditar->nome, tempScanf);
+    }
+
+    printf("Digite a nova descricao do prato: ");
+    scanf(" %99[^\n]", pratoAEditar->descricao);
+
+    printf("Digite o tipo do prato: ");
+    scanf(" %19[^\n]", pratoAEditar->tipo);
+
+    printf("Digite o novo preco do prato: ");
+    scanf(" %f", &pratoAEditar->preco);
+
 }
 
 //void pesquisarPrato(listaPratos, numPratos);
