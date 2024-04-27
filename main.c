@@ -12,13 +12,13 @@ void limparBufferEntrada()
 
 void trataAdicionarPrato(Prato *listaPratos, int *numPratos);
 
-void trataRemoverPrato(Prato *, int *);
+void trataRemoverPrato(Prato *listaPratos, int *numPratos);
 
 void imprimirListaPratos(Prato *listaPratos, int numPratos);
 
 void trataEditarPrato(Prato *listaPratos, int numPratos);
 
-void imprimeListaCompacta(Prato *, int);
+void imprimeListaCompacta(Prato *listaPratos, int numPratos);
 
 // void pesquisarPrato(listaPratos, numPratos);
 // void gerarRelatorios(listaPratos, numPratos);
@@ -109,10 +109,14 @@ void trataRemoverPrato(Prato *listaPratos, int *numPratos)
 {
     imprimeListaCompacta(listaPratos, *numPratos);
     printf("Selecione numero do prato a remover:");
+
     int indicePratoARemover = 0;
     scanf("%d", &indicePratoARemover);
     indicePratoARemover--;
-    // TODO: verificar indice dentro de intervalo correto
+    if (indicePratoARemover < 0 || indicePratoARemover > *numPratos) {
+        printf("O prato escolhido nao existe.\n");
+        return;
+    }
 
     removerPrato(listaPratos, indicePratoARemover, numPratos);
     printf("Prato removido com sucesso!\n");
@@ -142,39 +146,38 @@ void trataEditarPrato(Prato *listaPratos, int numPratos)
 {
     imprimeListaCompacta(listaPratos, numPratos);
 
-    printf("Qual o numero do prato quer editar? ");
+    printf("Qual numero do prato quer editar? ");
     int indicePratoEditado = 0;
     scanf("%d", &indicePratoEditado);
     indicePratoEditado--;
-    if (indicePratoEditado < 0 || indicePratoEditado >= numPratos)
+    if (indicePratoEditado < 0 || indicePratoEditado > numPratos)
     {
         printf("O prato escolhido nao existe.\n");
         return;
     }
-    limparBufferEntrada();
 
     Prato pratoEditado = listaPratos[indicePratoEditado];
     char textoLido[50];
 
-    printf("Digite nome do prato (enter para manter %s): ", pratoEditado.nome);
+    printf("Digite nome do prato (enter para manter %s):", pratoEditado.nome);
     fgets(textoLido, sizeof(textoLido), stdin);
     textoLido[strcspn(textoLido, "\n")] = '\0';
     if (strlen(textoLido) > 0)
         strcpy(pratoEditado.nome, textoLido);
 
-    printf("Digite a nova descricao do prato: ");
+    printf("Digite a nova descricao (enter para manter %s): ", pratoEditado.descricao);
     fgets(textoLido, sizeof(textoLido), stdin);
     textoLido[strcspn(textoLido, "\n")] = '\0';
     if (strlen(textoLido) > 0)
         strcpy(pratoEditado.descricao, textoLido);
 
-    printf("Digite o tipo do prato: ");
+    printf("Digite o novo tipo (enter para manter %s): ", pratoEditado.tipo);
     fgets(textoLido, sizeof(textoLido), stdin);
     textoLido[strcspn(textoLido, "\n")] = '\0';
     if (strlen(textoLido) > 0)
         strcpy(pratoEditado.tipo, textoLido);
 
-    printf("Digite o novo preco do prato: ");
+    printf("Digite o novo preco (enter para manter %f): ", pratoEditado.preco);
     fgets(textoLido, sizeof(textoLido), stdin);
     textoLido[strcspn(textoLido, "\n")] = '\0';
     if (strlen(textoLido) > 0)
