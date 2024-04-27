@@ -29,6 +29,7 @@ void test_atualizar_prato()
     Prato pratoSubstituto = {"dourada", "dourada grelhada", "Peixe", 10.0};
 
     atualizarPrato(cardapio, 0, pratoSubstituto);
+
     assert(cardapio->quantidade == 1);
     assertStrEqual(cardapio->pratos[0].nome, "dourada");
     assertStrEqual(cardapio->pratos[0].descricao, "dourada grelhada");
