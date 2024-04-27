@@ -29,7 +29,10 @@ int main()
     adicionarPrato(cardapio, novoPrato1);
     adicionarPrato(cardapio, novoPrato2);
 
-    printf("🍽️ 🍽️ 🍽️  Bem-vindo ao Gestor de Restaurante 🍽️ 🍽️ 🍽️ \n");
+    printf("\n🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️\n");
+    printf("🍽️ 🍽️ 🍽️ Gestor de Restaurante 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️\n");
+    printf("🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️\n\n");
+
     while (1)
     {
         switch (pedirOpcaoMenu())
@@ -70,7 +73,7 @@ int main()
 
 char pedirOpcaoMenu()
 {
-    printf(" ❓ Escolha uma opção: ");
+    printf(" ❓ Escolha uma opção:\n");
     printf("   +  Adicionar prato\n");
     printf("   -  Remover prato\n");
     printf("   e  Editar prato\n");
