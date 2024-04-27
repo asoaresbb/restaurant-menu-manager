@@ -4,7 +4,7 @@ build:
 run: build
 	./main.exe
 
-test: build
+test:
 	gcc -Wall restaurante.c test_restaurante.c -o test_restaurante.exe
 	./test_restaurante.exe
 

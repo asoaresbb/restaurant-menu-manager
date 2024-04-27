@@ -1,24 +1,30 @@
 #include <string.h>
+#include <stdlib.h>
 #include "restaurante.h"
 
-void adicionarPrato(Prato *listaPratos, int *numPratos, Prato pratoNovo)
+Cardapio *criarCardapio()
 {
-    strcpy(listaPratos[*numPratos].nome, pratoNovo.nome);
-    strcpy(listaPratos[*numPratos].descricao, pratoNovo.descricao);
-    strcpy(listaPratos[*numPratos].tipo, pratoNovo.tipo);
-    listaPratos[*numPratos].preco = pratoNovo.preco;
-    (*numPratos)++; // Incrementar o número de pratos na lista
+    return (Cardapio *)malloc(sizeof(Cardapio));
 }
 
-void removerPrato(Prato *listaPratos, int *numPratos, int indicePratoARemover)
+void adicionarPrato(Cardapio *cardapio, Prato pratoNovo)
 {
-    listaPratos[indicePratoARemover] = listaPratos[*numPratos - 1];
-    (*numPratos)--; // Atualizar o número de pratos na lista
+    strcpy(cardapio->pratos[cardapio->quantidade].nome, pratoNovo.nome);
+    strcpy(cardapio->pratos[cardapio->quantidade].descricao, pratoNovo.descricao);
+    strcpy(cardapio->pratos[cardapio->quantidade].tipo, pratoNovo.tipo);
+    cardapio->pratos[cardapio->quantidade].preco = pratoNovo.preco;
+    cardapio->quantidade++; // Incrementar o número de pratos na lista
 }
 
-void atualizarPrato(Prato *listaPratos, int numPratos, int indice, Prato prato)
+void removerPrato(Cardapio *cardapio, int indicePratoARemover)
 {
-    Prato *pratoAEditar = &listaPratos[indice];
+    cardapio->pratos[indicePratoARemover] = cardapio->pratos[cardapio->quantidade - 1];
+    cardapio->quantidade--; // Atualizar o número de pratos na lista
+}
+
+void atualizarPrato(Cardapio *cardapio, int indice, Prato prato)
+{
+    Prato *pratoAEditar = &cardapio->pratos[indice];
     strcpy(pratoAEditar->nome, prato.nome);
     strcpy(pratoAEditar->descricao, prato.descricao);
     strcpy(pratoAEditar->tipo, prato.tipo);

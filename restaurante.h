@@ -10,8 +10,15 @@ typedef struct
     float preco;
 } Prato;
 
-void adicionarPrato(Prato *, int *, Prato);
-void removerPrato(Prato *, int *, int);
-void atualizarPrato(Prato *listaPratos, int numPratos, int indice, Prato prato);
+typedef struct
+{
+    Prato pratos[100];
+    int quantidade;
+} Cardapio;
+
+Cardapio *criarCardapio();
+void adicionarPrato(Cardapio *cardapio, Prato pratoNovo);
+void removerPrato(Cardapio *cardapio, int indice);
+void atualizarPrato(Cardapio *cardapio, int indice, Prato prato);
 
 #endif

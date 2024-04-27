@@ -10,25 +10,23 @@ void limparBufferEntrada()
         ;
 }
 
-void trataAdicionarPrato(Prato *listaPratos, int *numPratos);
+void trataAdicionarPrato(Cardapio *cardapio);
 
-void trataRemoverPrato(Prato *listaPratos, int *numPratos);
+void trataRemoverPrato(Cardapio *cardapio);
 
-void imprimirListaPratos(Prato *listaPratos, int numPratos);
+void imprimirListaPratos(Cardapio *cardapio);
 
-void trataEditarPrato(Prato *listaPratos, int numPratos);
+void trataEditarPrato(Cardapio *cardapio);
 
 int main()
 {
-    Prato listaPratos[100]; // Lista de pratos
-    int numPratos = 0;      // Número atual de pratos na lista
-
+    Cardapio *cardapio = criarCardapio();
     // Adicionando pratos manualmente (substituir por CSV)
     Prato novoPrato1 = {"Picanha", "Suculenta picanha grelhada", "Carne", 35.50};
     Prato novoPrato2 = {"Salmao", "Salmao fresco grelhado", "Peixe", 25.99};
 
-    listaPratos[numPratos++] = novoPrato1;
-    listaPratos[numPratos++] = novoPrato2;
+    adicionarPrato(cardapio, novoPrato1);
+    adicionarPrato(cardapio, novoPrato2);
 
     char opcao[10];
     while (1)
@@ -49,25 +47,26 @@ int main()
         {
         case '+':
             printf("\n");
-            trataAdicionarPrato(listaPratos, &numPratos);
+            trataAdicionarPrato(cardapio);
             break;
         case '-':
             printf("\n");
-            trataRemoverPrato(listaPratos, &numPratos);
+            trataRemoverPrato(cardapio);
             break;
         case 'e':
             printf("\n");
-            trataEditarPrato(listaPratos, numPratos);
+            trataEditarPrato(cardapio);
             break;
         case 'p':
             printf("\n");
-            // pesquisarPrato(listaPratos, numPratos);
+            // pesquisarPrato(cardapio);
             break;
         case 'l':
             printf("\n");
-            imprimirListaPratos(listaPratos, numPratos);
+            imprimirListaPratos(cardapio);
             break;
         case 's':
+        case 'q':
             printf("\nA sair do programa...\n");
             return 0;
         default:
@@ -80,7 +79,7 @@ int main()
     return 0;
 }
 
-void trataAdicionarPrato(Prato *listaPratos, int *numPratos)
+void trataAdicionarPrato(Cardapio *cardapio)
 {
     Prato pratoNovo;
     printf("👉 Digite o nome do prato: ");
@@ -91,60 +90,60 @@ void trataAdicionarPrato(Prato *listaPratos, int *numPratos)
     scanf(" %19[^\n]", pratoNovo.tipo);
     printf("👉 Digite o preco do prato: ");
     scanf("%f", &pratoNovo.preco);
-    adicionarPrato(listaPratos, numPratos, pratoNovo);
+    adicionarPrato(cardapio, pratoNovo);
     printf("✅");
 }
 
-void trataRemoverPrato(Prato *listaPratos, int *numPratos)
+void trataRemoverPrato(Cardapio *cardapio)
 {
-    imprimirListaPratos(listaPratos, *numPratos);
+    imprimirListaPratos(cardapio);
     printf("👉 Selecione numero do prato a remover:");
 
     int indicePratoARemover = 0;
     scanf("%d", &indicePratoARemover);
     indicePratoARemover--;
-    if (indicePratoARemover < 0 || indicePratoARemover > *numPratos)
+    if (indicePratoARemover < 0 || indicePratoARemover > cardapio->quantidade)
     {
         printf("O prato escolhido nao existe.\n");
         return;
     }
 
-    removerPrato(listaPratos, numPratos, indicePratoARemover);
+    removerPrato(cardapio, indicePratoARemover);
     printf("Prato removido com sucesso!\n");
     return;
 }
 
-void imprimirListaPratos(Prato *listaPratos, int numPratos)
+void imprimirListaPratos(Cardapio *cardapio)
 {
-    if (numPratos == 0)
+    if (cardapio->quantidade == 0)
     {
         printf("A lista de pratos está vazia.\n");
         return;
     }
 
-    for (int i = 0; i < numPratos; i++)
+    for (int i = 0; i < cardapio->quantidade; i++)
     {
-        printf("\n%d: %s (%s) - %.2f€\n", i + 1, listaPratos[i].nome, listaPratos[i].tipo, listaPratos[i].preco);
-        printf("%s\n", listaPratos[i].descricao);
-        printf("\n");
+        printf("\n%d: %s (%s) - %.2f€\n", i + 1, cardapio->pratos[i].nome, cardapio->pratos[i].tipo, cardapio->pratos[i].preco);
+        printf("%s\n", cardapio->pratos[i].descricao);
     }
+    printf("\n");
 }
 
-void trataEditarPrato(Prato *listaPratos, int numPratos)
+void trataEditarPrato(Cardapio *cardapio)
 {
-    imprimirListaPratos(listaPratos, numPratos);
+    imprimirListaPratos(cardapio);
 
     printf("👉 Que prato quer editar? ");
     int indicePratoEditado = 0;
     scanf("%d", &indicePratoEditado);
     indicePratoEditado--;
-    if (indicePratoEditado < 0 || indicePratoEditado > numPratos)
+    if (indicePratoEditado < 0 || indicePratoEditado > cardapio->quantidade)
     {
         printf("O prato escolhido nao existe.\n");
         return;
     }
 
-    Prato pratoEditado = listaPratos[indicePratoEditado];
+    Prato pratoEditado = cardapio->pratos[indicePratoEditado];
     char textoLido[50];
 
     printf("👉 Digite nome do prato (enter para manter %s):", pratoEditado.nome);
@@ -171,5 +170,5 @@ void trataEditarPrato(Prato *listaPratos, int numPratos)
     if (strlen(textoLido) > 0)
         pratoEditado.preco = atoi(textoLido);
 
-    atualizarPrato(listaPratos, numPratos, indicePratoEditado, pratoEditado);
+    atualizarPrato(cardapio, indicePratoEditado, pratoEditado);
 }
