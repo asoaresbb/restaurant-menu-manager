@@ -62,9 +62,9 @@ int main()
             return 0;
         default:
             printf("\nOpção inválida. Tente novamente.\n");
-            limparBufferEntrada();
             break;
         }
+        limparBufferEntrada();
     }
 
     return 0;
@@ -87,10 +87,11 @@ char pedirOpcaoMenu()
 
 void trataAdicionarPrato(Cardapio *cardapio)
 {
+    limparBufferEntrada();
     Prato pratoNovo;
     printf("👉 Digite o nome do prato: ");
     scanf(" %49[^\n]", pratoNovo.nome);
-    printf("Digite a descricao do prato: ");
+    printf("👉 Digite a descricao do prato: ");
     scanf(" %99[^\n]", pratoNovo.descricao);
     printf("👉 Digite o tipo do prato: ");
     scanf(" %19[^\n]", pratoNovo.tipo);
@@ -137,11 +138,11 @@ void imprimirListaPratos(Cardapio *cardapio)
 void trataEditarPrato(Cardapio *cardapio)
 {
     imprimirListaPratos(cardapio);
-
     printf("👉 Que prato quer editar? ");
     int indicePratoEditado = 0;
     scanf("%d", &indicePratoEditado);
     indicePratoEditado--;
+    limparBufferEntrada();
     if (indicePratoEditado < 0 || indicePratoEditado > cardapio->quantidade)
     {
         printf("O prato escolhido nao existe.\n");
