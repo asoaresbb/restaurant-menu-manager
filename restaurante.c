@@ -10,7 +10,7 @@ void adicionarPrato(Prato *listaPratos, int *numPratos, Prato pratoNovo)
     (*numPratos)++; // Incrementar o número de pratos na lista
 }
 
-void removerPrato(Prato *listaPratos, int indicePratoARemover, int *numPratos)
+void removerPrato(Prato *listaPratos, int *numPratos, int indicePratoARemover)
 {
     listaPratos[indicePratoARemover] = listaPratos[*numPratos - 1];
     (*numPratos)--; // Atualizar o número de pratos na lista

@@ -111,7 +111,7 @@ void trataRemoverPrato(Prato *listaPratos, int *numPratos)
         return;
     }
 
-    removerPrato(listaPratos, indicePratoARemover, numPratos);
+    removerPrato(listaPratos, numPratos, indicePratoARemover);
     printf("Prato removido com sucesso!\n");
     return;
 }

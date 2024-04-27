@@ -7,7 +7,7 @@ void assertStrEqual(char *expected, char *actual)
     assert(strcmp(expected, actual) == 0);
 }
 
-void test_adicionar()
+void test_adicionar_prato()
 {
     Prato listaPratos[100];
     int numPratos = 0;
@@ -38,8 +38,21 @@ void test_atualizar_prato()
     assert(listaPratos[0].preco == 10.0f);
 }
 
+void test_remover_prato()
+{
+    Prato listaPratos[100];
+    int numPratos = 0;
+    Prato prato1 = {"Picanha", "Suculenta picanha grelhada", "Carne", 35.50};
+    adicionarPrato(listaPratos, &numPratos, prato1);
+
+    removerPrato(listaPratos, &numPratos, 0);
+
+    assert(numPratos == 0);
+}
+
 int main()
 {
-    test_adicionar();
+    test_adicionar_prato();
     test_atualizar_prato();
+    test_remover_prato();
 }
