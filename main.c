@@ -98,7 +98,8 @@ void trataAdicionarPrato(Cardapio *cardapio)
     printf("👉 Digite o preco do prato: ");
     scanf("%f", &pratoNovo.preco);
     adicionarPrato(cardapio, pratoNovo);
-    printf("✅");
+    printf("Prato adicionado com sucesso ✅\n");
+    printf("\n");
 }
 
 void trataRemoverPrato(Cardapio *cardapio)
@@ -117,6 +118,7 @@ void trataRemoverPrato(Cardapio *cardapio)
 
     removerPrato(cardapio, indicePratoARemover);
     printf("Prato removido com sucesso!\n");
+    printf("\n");
     return;
 }
 
@@ -170,11 +172,13 @@ void trataEditarPrato(Cardapio *cardapio)
     if (strlen(textoLido) > 0)
         strcpy(pratoEditado.tipo, textoLido);
 
-    printf("👉 Digite o novo preco (enter para manter %f): ", pratoEditado.preco);
+    printf("👉 Digite o novo preco (enter para manter %.2f): ", pratoEditado.preco);
     fgets(textoLido, sizeof(textoLido), stdin);
     textoLido[strcspn(textoLido, "\n")] = '\0';
     if (strlen(textoLido) > 0)
         pratoEditado.preco = atoi(textoLido);
 
     atualizarPrato(cardapio, indicePratoEditado, pratoEditado);
+
+    printf("Prato atualizado com sucesso!\n");
 }
