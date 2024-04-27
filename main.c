@@ -26,10 +26,10 @@ int main()
     // Adicionando pratos manualmente (substituir por CSV)
     Prato novoPrato1 = {"Picanha", "Suculenta picanha grelhada", "Carne", 35.50};
     Prato novoPrato2 = {"Salmao", "Salmao fresco grelhado", "Peixe", 25.99};
-
     adicionarPrato(cardapio, novoPrato1);
     adicionarPrato(cardapio, novoPrato2);
 
+    printf("🍽️ 🍽️ 🍽️  Bem-vindo ao Gestor de Restaurante 🍽️ 🍽️ 🍽️ \n");
     while (1)
     {
         switch (pedirOpcaoMenu())
@@ -65,20 +65,18 @@ int main()
         }
         limparBufferEntrada();
     }
-
     return 0;
 }
 
 char pedirOpcaoMenu()
 {
-    printf("🍽️ 🍽️ 🍽️  Menu 🍽️ 🍽️ 🍽️ \n");
+    printf(" ❓ Escolha uma opção: ");
     printf("   +  Adicionar prato\n");
     printf("   -  Remover prato\n");
     printf("   e  Editar prato\n");
     printf("   p  Pesquisar prato\n");
     printf("   l  Imprimir a lista de pratos\n");
     printf("   s  Sair do programa\n");
-    printf(" ❓ Escolha uma opção: ");
     char opcao[10];
     scanf("%s", opcao);
     return tolower(opcao[0]);
