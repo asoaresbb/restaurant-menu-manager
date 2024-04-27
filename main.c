@@ -124,10 +124,8 @@ void imprimirListaPratos(Prato *listaPratos, int numPratos)
 
     for (int i = 0; i < numPratos; i++)
     {
-        printf("%d - %s\n", i + 1, listaPratos[i].nome);
+        printf("\n%d: %s (%s) - %.2f€\n", i + 1, listaPratos[i].nome, listaPratos[i].tipo, listaPratos[i].preco);
         printf("%s\n", listaPratos[i].descricao);
-        printf("%s ", listaPratos[i].tipo);
-        printf("%.2f€\n", listaPratos[i].preco);
         printf("\n");
     }
 }
