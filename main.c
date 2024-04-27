@@ -77,8 +77,8 @@ char pedirOpcaoMenu()
     printf("   +  Adicionar prato\n");
     printf("   -  Remover prato\n");
     printf("   e  Editar prato\n");
-    printf("   p  Pesquisar prato\n");
     printf("   l  Imprimir a lista de pratos\n");
+    printf("   p  Pesquisar prato\n");
     printf("   s  Sair do programa\n");
     char opcao[10];
     scanf("%s", opcao);
@@ -98,7 +98,7 @@ void trataAdicionarPrato(Cardapio *cardapio)
     printf(" ❓ Digite o preco do prato: ");
     scanf("%f", &pratoNovo.preco);
     adicionarPrato(cardapio, pratoNovo);
-    printf(" ℹ️ Prato adicionado com sucesso.\n");
+    printf(" ℹ️ O prato %s foi adicionado.\n", pratoNovo.nome);
     printf("\n");
 }
 
