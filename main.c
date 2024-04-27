@@ -44,13 +44,13 @@ int main()
     while (1)
     {
         // Exibir opções do menu
-        printf("\n🍛🍛 Menu 🍛🍛\n");
+        printf("🍛🍛 Menu 🍛🍛\n");
         printf("+  Adicionar prato\n");
         printf("-  Remover prato\n");
         printf("e  Editar prato\n");
         printf("p  Pesquisar prato\n");
-        printf("l - Imprimir a lista de pratos\n");
-        printf("s - Sair do programa\n");
+        printf("l  Imprimir a lista de pratos\n");
+        printf("s  Sair do programa\n");
         printf("  Escolha uma opção: ");
 
         scanf("%s", opcao);
@@ -58,29 +58,35 @@ int main()
         switch (tolower(opcao[0]))
         {
         case '+':
+            printf("\n");
             trataAdicionarPrato(listaPratos, &numPratos);
             break;
         case '-':
+            printf("\n");
             trataRemoverPrato(listaPratos, &numPratos);
             break;
         case 'e':
+            printf("\n");
             trataEditarPrato(listaPratos, numPratos);
             break;
         case 'p':
+            printf("\n");
             // pesquisarPrato(listaPratos, numPratos);
             break;
         case 'l':
+            printf("\n");
             imprimirListaPratos(listaPratos, numPratos);
             break;
         case 's':
-            printf("A sair do programa...\n");
+            printf("\nA sair do programa...\n");
             return 0;
         default:
-            printf("Opcao %s invalida. Tente novamente.\n", opcao);
+            printf("\nOpcao %s invalida. Tente novamente.\n", opcao);
             limparBufferEntrada();
             break;
         }
     }
+
     return 0;
 }
 
@@ -123,7 +129,7 @@ void imprimirListaPratos(Prato *listaPratos, int numPratos)
 
     for (int i = 0; i < numPratos; i++)
     {
-        printf("Prato %d:\n", i + 1);
+        printf("---- Prato %d ----\n", i + 1);
         printf("Nome: %s\n", listaPratos[i].nome);
         printf("Descricao: %s\n", listaPratos[i].descricao);
         printf("Tipo: %s\n", listaPratos[i].tipo);
