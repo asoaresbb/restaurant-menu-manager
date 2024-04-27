@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include "restaurante.h"
 
 void limparBufferEntrada()
@@ -39,58 +40,44 @@ int main()
     listaPratos[numPratos++] = novoPrato1;
     listaPratos[numPratos++] = novoPrato2;
 
-    int opcao;
+    char opcao[10];
     while (1)
     {
         // Exibir opções do menu
-        printf("\nMenu:\n");
-        printf("1 - Adicionar prato\n");
-        printf("2 - Remover prato\n");
-        printf("3 - Editar prato\n");
-        printf("4 - Pesquisar prato\n");
-        printf("5 - Imprimir a lista de pratos\n");
-        printf("6 - Registar pedido\n");
-        printf("7 - Atribuir pedido a mesa\n");
-        printf("8 - Controlar estado dos pedidos\n");
-        printf("9 - Gerar relatorios\n");
-        printf("0 - Sair do programa\n");
-        printf("Escolha uma opcao:\n");
-        scanf("%d", &opcao);
+        printf("\n🍛🍛 Menu 🍛🍛\n");
+        printf("+  Adicionar prato\n");
+        printf("-  Remover prato\n");
+        printf("e  Editar prato\n");
+        printf("p  Pesquisar prato\n");
+        printf("l - Imprimir a lista de pratos\n");
+        printf("s - Sair do programa\n");
+        printf("  Escolha uma opção: ");
 
-        switch (opcao)
+        scanf("%s", opcao);
+
+        switch (tolower(opcao[0]))
         {
-        case 1:
+        case '+':
             trataAdicionarPrato(listaPratos, &numPratos);
             break;
-        case 2:
+        case '-':
             trataRemoverPrato(listaPratos, &numPratos);
             break;
-        case 3:
+        case 'e':
             trataEditarPrato(listaPratos, numPratos);
             break;
-        case 4:
+        case 'p':
             // pesquisarPrato(listaPratos, numPratos);
             break;
-        case 5:
+        case 'l':
             imprimirListaPratos(listaPratos, numPratos);
             break;
-        case 6:
-            registarPedido(listaPratos, numPratos);
-            break;
-        case 7:
-            atribuirPedidoMesa();
-            break;
-        case 8:
-            controlarEstadoPedidos();
-            break;
-        case 9:
-            // gerarRelatorios(listaPratos, numPratos);
-            break;
-        case 0:
+        case 's':
             printf("A sair do programa...\n");
             return 0;
         default:
-            printf("Opcao invalida. Tente novamente.\n");
+            printf("Opcao %s invalida. Tente novamente.\n", opcao);
+            limparBufferEntrada();
             break;
         }
     }
