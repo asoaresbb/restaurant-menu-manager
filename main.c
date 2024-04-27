@@ -29,9 +29,9 @@ int main()
     adicionarPrato(cardapio, novoPrato1);
     adicionarPrato(cardapio, novoPrato2);
 
-    printf("\n🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️\n");
-    printf("🍽️ 🍽️ 🍽️ Gestor de Restaurante 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️\n");
-    printf("🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️\n\n");
+    printf("\n🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️\n");
+    printf("🍽️ 🍽️ 🍽️  Gestor de Restaurante  🍽️ 🍽️ 🍽️ \n");
+    printf("🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ \n\n");
 
     while (1)
     {
