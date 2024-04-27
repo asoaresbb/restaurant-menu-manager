@@ -152,12 +152,12 @@ void trataEditarPrato(Cardapio *cardapio)
     }
 
     Prato pratoEditado = cardapio->pratos[indicePratoEditado];
-    char textoLido[50];
+    char textoLido[50];  // Tamanho máximo da linha a ser lida
 
-    printf(" ❓ Digite nome do prato (enter para manter %s):", pratoEditado.nome);
+    printf(" ❓ Digite nome do prato (enter para manter %s): ", pratoEditado.nome);
     fgets(textoLido, sizeof(textoLido), stdin);
-    textoLido[strcspn(textoLido, "\n")] = '\0';
-    if (strlen(textoLido) > 0)
+    textoLido[strcspn(textoLido, "\n")] = '\0';  // Remove o \n se presente
+    if (strlen(textoLido) > 0) // Verifica se foi digitado algo antes do Enter
         strcpy(pratoEditado.nome, textoLido);
 
     printf(" ❓ Digite a nova descricao (enter para manter %s): ", pratoEditado.descricao);
@@ -176,9 +176,9 @@ void trataEditarPrato(Cardapio *cardapio)
     fgets(textoLido, sizeof(textoLido), stdin);
     textoLido[strcspn(textoLido, "\n")] = '\0';
     if (strlen(textoLido) > 0)
-        pratoEditado.preco = atoi(textoLido);
+        pratoEditado.preco = atof(textoLido);  // Converte para float
 
     atualizarPrato(cardapio, indicePratoEditado, pratoEditado);
 
-    printf(" ℹ️ Prato atualizado com sucesso.\n");
+    printf(" ℹ️ Prato atualizado com sucesso. (enter para voltar ao menu)\n");
 }
