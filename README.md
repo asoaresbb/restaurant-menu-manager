@@ -1,32 +1,32 @@
-# Gestor de Ementas em C
+# Restaurant Menu Manager in C
 
-Aplicação de linha de comandos para gerir a ementa de um restaurante: cada prato tem nome, descrição, tipo e preço.
+A command-line application for managing a restaurant's menu: each dish has a name, description, type and price. The interface is in Portuguese.
 
-## Funcionalidades
+## Features
 
-- Adicionar, remover, editar e listar pratos
-- Ementa com até 100 pratos, num módulo separado da interface
-- Testes unitários do módulo da ementa
+- Add, remove, edit and list dishes
+- A menu of up to 100 dishes, in a module separate from the interface
+- Unit tests for the menu module
 
-## Como correr
+## Running
 
-Requer `gcc` e `make`.
+Requires `gcc` and `make`.
 
 ```sh
-make run    # compila e abre o menu
-make test   # testes unitários
+make run    # compiles and opens the menu
+make test   # unit tests
 ```
 
-## Estrutura
+## Structure
 
-| Ficheiro | O que faz |
+| File | What it does |
 | --- | --- |
-| `restaurante.c/.h` | A ementa: criar, adicionar, remover e atualizar pratos |
-| `main.c` | Menu e interação com o utilizador |
-| `test_restaurante.c` | Testes unitários |
+| `restaurante.c/.h` | The menu: create it, and add, remove and update dishes |
+| `main.c` | Menu and user interaction |
+| `test_restaurante.c` | Unit tests |
 
-## Contexto
+## Context
 
-Projeto da unidade curricular de Laboratório de Programação, Universidade Aberta, abril de 2024.
+Course project for Programming Lab (Laboratório de Programação), Universidade Aberta, April 2024.
 
-Desenvolvido em programação a pares com um mentor.
+Built through pair programming with a mentor.
