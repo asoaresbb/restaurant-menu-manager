@@ -6,8 +6,30 @@
 
 void limparBufferEntrada()
 {
-    while ((getchar()) != '\n')
+    int caracter;
+    // Pára também no fim do input (EOF), senão o ciclo nunca acabava
+    while ((caracter = getchar()) != '\n' && caracter != EOF)
         ;
+}
+
+// Lê uma linha com no máximo tamanho - 1 caracteres, sem o '\n'.
+// O que passar do limite é descartado, para não ser lido na pergunta seguinte.
+void lerLinha(char *texto, int tamanho)
+{
+    if (fgets(texto, tamanho, stdin) == NULL)
+    {
+        texto[0] = '\0';
+        return;
+    }
+    if (strchr(texto, '\n') == NULL)
+        limparBufferEntrada();
+    texto[strcspn(texto, "\n")] = '\0';
+}
+
+// Descarta o resto da linha depois de um scanf com limite, sem consumir o '\n'
+void descartarRestoDaLinha()
+{
+    scanf("%*[^\n]");
 }
 
 void trataAdicionarPrato(Cardapio *cardapio);
@@ -82,7 +104,8 @@ char pedirOpcaoMenu()
     printf("   p  Pesquisar prato\n");
     printf("   s  Sair do programa\n");
     char opcao[10];
-    scanf("%s", opcao);
+    if (scanf("%9s", opcao) != 1) // Fim do input: sair, em vez de usar lixo como opção
+        return 's';
     return tolower(opcao[0]);
 }
 
@@ -92,10 +115,13 @@ void trataAdicionarPrato(Cardapio *cardapio)
     Prato pratoNovo;
     printf(" ❓ Digite o nome do prato: ");
     scanf(" %49[^\n]", pratoNovo.nome);
+    descartarRestoDaLinha();
     printf(" ❓ Digite a descricao do prato: ");
     scanf(" %99[^\n]", pratoNovo.descricao);
+    descartarRestoDaLinha();
     printf(" ❓ Digite o tipo do prato: ");
     scanf(" %19[^\n]", pratoNovo.tipo);
+    descartarRestoDaLinha();
     printf(" ❓ Digite o preco do prato: ");
     scanf("%f", &pratoNovo.preco);
     if (!adicionarPrato(cardapio, pratoNovo))
@@ -156,29 +182,26 @@ void trataEditarPrato(Cardapio *cardapio)
     }
 
     Prato pratoEditado = cardapio->pratos[indicePratoEditado];
-    char textoLido[50];  // Tamanho máximo da linha a ser lida
+    // Cada leitura fica limitada ao tamanho do campo, para o strcpy não escrever fora dele
+    char textoLido[sizeof(pratoEditado.descricao)];
 
     printf(" ❓ Digite nome do prato (enter para manter %s): ", pratoEditado.nome);
-    fgets(textoLido, sizeof(textoLido), stdin);
-    textoLido[strcspn(textoLido, "\n")] = '\0';  // Remove o \n se presente
+    lerLinha(textoLido, sizeof(pratoEditado.nome));
     if (strlen(textoLido) > 0) // Verifica se foi digitado algo antes do Enter
         strcpy(pratoEditado.nome, textoLido);
 
     printf(" ❓ Digite a nova descricao (enter para manter %s): ", pratoEditado.descricao);
-    fgets(textoLido, sizeof(textoLido), stdin);
-    textoLido[strcspn(textoLido, "\n")] = '\0';
+    lerLinha(textoLido, sizeof(pratoEditado.descricao));
     if (strlen(textoLido) > 0)
         strcpy(pratoEditado.descricao, textoLido);
 
     printf(" ❓ Digite o novo tipo (enter para manter %s): ", pratoEditado.tipo);
-    fgets(textoLido, sizeof(textoLido), stdin);
-    textoLido[strcspn(textoLido, "\n")] = '\0';
+    lerLinha(textoLido, sizeof(pratoEditado.tipo));
     if (strlen(textoLido) > 0)
         strcpy(pratoEditado.tipo, textoLido);
 
     printf(" ❓ Digite o novo preco (enter para manter %.2f): ", pratoEditado.preco);
-    fgets(textoLido, sizeof(textoLido), stdin);
-    textoLido[strcspn(textoLido, "\n")] = '\0';
+    lerLinha(textoLido, sizeof(textoLido));
     if (strlen(textoLido) > 0)
         pratoEditado.preco = atof(textoLido);  // Converte para float
 
