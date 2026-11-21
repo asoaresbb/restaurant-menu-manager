@@ -1,5 +1,6 @@
 #include "restaurante.h"
 #include <assert.h>
+#include <stdlib.h>
 #include <string.h>
 
 void assertStrEqual(char *expected, char *actual)
@@ -48,9 +49,18 @@ void test_remover_prato()
     assert(cardapio->quantidade == 0);
 }
 
+void test_criar_cardapio_vazio()
+{
+    Cardapio *cardapio = criarCardapio();
+
+    assert(cardapio->quantidade == 0);
+    free(cardapio);
+}
+
 int main()
 {
     test_adicionar_prato();
     test_atualizar_prato();
     test_remover_prato();
+    test_criar_cardapio_vazio();
 }

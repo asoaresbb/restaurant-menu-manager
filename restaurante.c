@@ -4,7 +4,9 @@
 
 Cardapio *criarCardapio()
 {
-    return (Cardapio *)malloc(sizeof(Cardapio));
+    // calloc preenche a memória a zeros: o cardápio começa com quantidade 0.
+    // Com malloc, a quantidade ficava com o lixo que estivesse na memória.
+    return (Cardapio *)calloc(1, sizeof(Cardapio));
 }
 
 void adicionarPrato(Cardapio *cardapio, Prato pratoNovo)

@@ -62,6 +62,7 @@ int main()
         case 's':
         case 'q':
             printf(" ℹ️ A sair do programa...\n");
+            free(cardapio);
             return 0;
         default:
             printf(" ℹ️ Opção inválida. Tente novamente.\n");
