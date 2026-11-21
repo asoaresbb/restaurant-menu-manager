@@ -22,7 +22,7 @@ typedef struct
 
 Cardapio *criarCardapio();
 bool adicionarPrato(Cardapio *cardapio, Prato pratoNovo); // false se o cardápio estiver cheio
-void removerPrato(Cardapio *cardapio, int indice);
-void atualizarPrato(Cardapio *cardapio, int indice, Prato prato);
+bool removerPrato(Cardapio *cardapio, int indice);              // false se o prato não existir
+bool atualizarPrato(Cardapio *cardapio, int indice, Prato prato); // false se o prato não existir
 
 #endif

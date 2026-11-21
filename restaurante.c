@@ -21,17 +21,29 @@ bool adicionarPrato(Cardapio *cardapio, Prato pratoNovo)
     return true;
 }
 
-void removerPrato(Cardapio *cardapio, int indicePratoARemover)
+// Os índices válidos vão de 0 a quantidade - 1
+static bool indiceValido(Cardapio *cardapio, int indice)
 {
-    cardapio->pratos[indicePratoARemover] = cardapio->pratos[cardapio->quantidade - 1];
-    cardapio->quantidade--; // Atualizar o número de pratos na lista
+    return indice >= 0 && indice < cardapio->quantidade;
 }
 
-void atualizarPrato(Cardapio *cardapio, int indice, Prato prato)
+bool removerPrato(Cardapio *cardapio, int indicePratoARemover)
 {
+    if (!indiceValido(cardapio, indicePratoARemover))
+        return false;
+    cardapio->pratos[indicePratoARemover] = cardapio->pratos[cardapio->quantidade - 1];
+    cardapio->quantidade--; // Atualizar o número de pratos na lista
+    return true;
+}
+
+bool atualizarPrato(Cardapio *cardapio, int indice, Prato prato)
+{
+    if (!indiceValido(cardapio, indice))
+        return false;
     Prato *pratoAEditar = &cardapio->pratos[indice];
     strcpy(pratoAEditar->nome, prato.nome);
     strcpy(pratoAEditar->descricao, prato.descricao);
     strcpy(pratoAEditar->tipo, prato.tipo);
     pratoAEditar->preco = prato.preco;
+    return true;
 }

@@ -115,13 +115,12 @@ void trataRemoverPrato(Cardapio *cardapio)
     int indicePratoARemover = 0;
     scanf("%d", &indicePratoARemover);
     indicePratoARemover--;
-    if (indicePratoARemover < 0 || indicePratoARemover > cardapio->quantidade)
+    if (!removerPrato(cardapio, indicePratoARemover))
     {
         printf(" ℹ️ O prato escolhido nao existe.\n");
         return;
     }
 
-    removerPrato(cardapio, indicePratoARemover);
     printf(" ℹ️ Prato removido com sucesso!\n");
     printf("\n");
     return;
@@ -150,7 +149,7 @@ void trataEditarPrato(Cardapio *cardapio)
     scanf("%d", &indicePratoEditado);
     indicePratoEditado--;
     limparBufferEntrada();
-    if (indicePratoEditado < 0 || indicePratoEditado > cardapio->quantidade)
+    if (indicePratoEditado < 0 || indicePratoEditado >= cardapio->quantidade)
     {
         printf(" ℹ️ O prato escolhido nao existe.\n");
         return;

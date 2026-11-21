@@ -71,6 +71,37 @@ void test_adicionar_prato_com_cardapio_cheio()
     free(cardapio);
 }
 
+void test_remover_prato_inexistente()
+{
+    Cardapio *cardapio = criarCardapio();
+    Prato prato1 = {"Picanha", "Suculenta picanha grelhada", "Carne", 35.50};
+    Prato prato2 = {"Salmao", "Salmao fresco grelhado", "Peixe", 25.99};
+    adicionarPrato(cardapio, prato1);
+    adicionarPrato(cardapio, prato2);
+
+    // O índice 2 é o terceiro prato, que não existe
+    assert(!removerPrato(cardapio, 2));
+    assert(!removerPrato(cardapio, -1));
+
+    assert(cardapio->quantidade == 2);
+    assertStrEqual(cardapio->pratos[1].nome, "Salmao");
+    free(cardapio);
+}
+
+void test_atualizar_prato_inexistente()
+{
+    Cardapio *cardapio = criarCardapio();
+    Prato prato1 = {"Picanha", "Suculenta picanha grelhada", "Carne", 35.50};
+    adicionarPrato(cardapio, prato1);
+    Prato pratoSubstituto = {"dourada", "dourada grelhada", "Peixe", 10.0};
+
+    assert(!atualizarPrato(cardapio, 1, pratoSubstituto));
+
+    assert(cardapio->quantidade == 1);
+    assertStrEqual(cardapio->pratos[0].nome, "Picanha");
+    free(cardapio);
+}
+
 int main()
 {
     test_adicionar_prato();
@@ -78,4 +109,6 @@ int main()
     test_remover_prato();
     test_criar_cardapio_vazio();
     test_adicionar_prato_com_cardapio_cheio();
+    test_remover_prato_inexistente();
+    test_atualizar_prato_inexistente();
 }
