@@ -73,10 +73,6 @@ int main()
             printf("\n");
             trataEditarPrato(cardapio);
             break;
-        case 'p':
-            printf("\n");
-            // pesquisarPrato(cardapio);
-            break;
         case 'l':
             printf("\n");
             imprimirListaPratos(cardapio);
@@ -101,7 +97,6 @@ char pedirOpcaoMenu()
     printf("   -  Remover prato\n");
     printf("   e  Editar prato\n");
     printf("   l  Imprimir a lista de pratos\n");
-    printf("   p  Pesquisar prato\n");
     printf("   s  Sair do programa\n");
     char opcao[10];
     if (scanf("%9s", opcao) != 1) // Fim do input: sair, em vez de usar lixo como opção
