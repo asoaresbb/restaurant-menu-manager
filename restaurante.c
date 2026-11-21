@@ -9,13 +9,16 @@ Cardapio *criarCardapio()
     return (Cardapio *)calloc(1, sizeof(Cardapio));
 }
 
-void adicionarPrato(Cardapio *cardapio, Prato pratoNovo)
+bool adicionarPrato(Cardapio *cardapio, Prato pratoNovo)
 {
+    if (cardapio->quantidade >= MAX_PRATOS)
+        return false; // Não há espaço no array para mais pratos
     strcpy(cardapio->pratos[cardapio->quantidade].nome, pratoNovo.nome);
     strcpy(cardapio->pratos[cardapio->quantidade].descricao, pratoNovo.descricao);
     strcpy(cardapio->pratos[cardapio->quantidade].tipo, pratoNovo.tipo);
     cardapio->pratos[cardapio->quantidade].preco = pratoNovo.preco;
     cardapio->quantidade++; // Incrementar o número de pratos na lista
+    return true;
 }
 
 void removerPrato(Cardapio *cardapio, int indicePratoARemover)

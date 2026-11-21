@@ -1,6 +1,10 @@
 #ifndef RESTAURANTE_H
 #define RESTAURANTE_H
 
+#include <stdbool.h>
+
+#define MAX_PRATOS 100
+
 // Definição da estrutura para representar um prato
 typedef struct
 {
@@ -12,12 +16,12 @@ typedef struct
 
 typedef struct
 {
-    Prato pratos[100];
+    Prato pratos[MAX_PRATOS];
     int quantidade;
 } Cardapio;
 
 Cardapio *criarCardapio();
-void adicionarPrato(Cardapio *cardapio, Prato pratoNovo);
+bool adicionarPrato(Cardapio *cardapio, Prato pratoNovo); // false se o cardápio estiver cheio
 void removerPrato(Cardapio *cardapio, int indice);
 void atualizarPrato(Cardapio *cardapio, int indice, Prato prato);
 

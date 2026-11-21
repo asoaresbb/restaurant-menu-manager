@@ -57,10 +57,25 @@ void test_criar_cardapio_vazio()
     free(cardapio);
 }
 
+void test_adicionar_prato_com_cardapio_cheio()
+{
+    Cardapio *cardapio = criarCardapio();
+    Prato prato = {"Sopa", "Sopa do dia", "Entrada", 3.0};
+    for (int i = 0; i < MAX_PRATOS; i++)
+        assert(adicionarPrato(cardapio, prato));
+
+    bool adicionado = adicionarPrato(cardapio, prato);
+
+    assert(!adicionado);
+    assert(cardapio->quantidade == MAX_PRATOS);
+    free(cardapio);
+}
+
 int main()
 {
     test_adicionar_prato();
     test_atualizar_prato();
     test_remover_prato();
     test_criar_cardapio_vazio();
+    test_adicionar_prato_com_cardapio_cheio();
 }

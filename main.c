@@ -98,7 +98,11 @@ void trataAdicionarPrato(Cardapio *cardapio)
     scanf(" %19[^\n]", pratoNovo.tipo);
     printf(" ❓ Digite o preco do prato: ");
     scanf("%f", &pratoNovo.preco);
-    adicionarPrato(cardapio, pratoNovo);
+    if (!adicionarPrato(cardapio, pratoNovo))
+    {
+        printf(" ℹ️ O cardápio está cheio (máximo de %d pratos).\n", MAX_PRATOS);
+        return;
+    }
     printf(" ℹ️ O prato %s foi adicionado.\n", pratoNovo.nome);
     printf("\n");
 }
